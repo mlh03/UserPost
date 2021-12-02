@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,25 +9,22 @@ using UserPost.Models;
 
 namespace UserPost.Controllers
 {
-    public class UserController : Controller
+    public class ProductController : Controller
     {
         private readonly DataBaseContext _context;
-        private readonly IHostingEnvironment _environment;
 
-        public UserController(DataBaseContext context, IHostingEnvironment hostingEnvironment)
+        public ProductController(DataBaseContext context)
         {
             _context = context;
-            _environment = hostingEnvironment;
-
         }
 
-        // GET: User
+        // GET: Product
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Products.ToListAsync());
         }
 
-        // GET: User/Details/5
+        // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,39 +32,39 @@ namespace UserPost.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(product);
         }
 
-        // GET: User/Create
+        // GET: Product/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Password")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(product);
         }
 
-        // GET: User/Edit/5
+        // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +72,22 @@ namespace UserPost.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(product);
         }
 
-        // POST: User/Edit/5
+        // POST: Product/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price")] Product product)
         {
-            if (id != user.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -103,12 +96,12 @@ namespace UserPost.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -119,10 +112,10 @@ namespace UserPost.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(product);
         }
 
-        // GET: User/Delete/5
+        // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,65 +123,30 @@ namespace UserPost.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(product);
         }
 
-        // POST: User/Delete/5
+        // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
-        }
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public ActionResult Login(User modal)
-        {
-            var user = _context.Users.Where(u => u.Email == modal.Email && u.Password == modal.Password).FirstOrDefault();
-
-            if (user != null)
-            {
-                var userClaims = new List<Claim>()
-                {
-                    new Claim("Id", user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    //new Claim("Image", user.Image),
-
-                };
-
-                var userIdentity = new ClaimsIdentity(userClaims, "User Identity");
-
-                var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
-                HttpContext.SignInAsync(userPrincipal);
-
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("AccessDenied", "User");
-
-            }
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

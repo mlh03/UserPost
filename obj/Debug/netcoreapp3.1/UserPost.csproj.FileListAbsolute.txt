@@ -170,3 +170,15 @@
 /Users/mohamedalsadi/Projects/UserPostApplication/UserPost/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
 /Users/mohamedalsadi/Projects/UserPostApplication/UserPost/bin/Debug/netcoreapp3.1/System.Text.Json.dll
 /Users/mohamedalsadi/Projects/UserPostApplication/UserPost/bin/Debug/netcoreapp3.1/runtimes/linux-mips64/native/libe_sqlite3.so
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Create.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Delete.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Details.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Edit.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Index.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/AccessDenied.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/User/Login.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/Product/Create.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/Product/Delete.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/Product/Details.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/Product/Edit.cshtml.g.cs
+/Users/mohamedalsadi/Projects/UserPostApplication/UserPost/obj/Debug/netcoreapp3.1/Razor/Views/Product/Index.cshtml.g.cs
