@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UserPost.Models;
 
@@ -55,8 +54,13 @@ namespace UserPost.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Price")] Product product)
         {
+            int currUserId = Int32.Parse(User.FindFirst("Id").Value);
+            User currUser = await _context.Users
+                 .FirstOrDefaultAsync(m => m.Id == currUserId);
+
             if (ModelState.IsValid)
             {
+                product.UserId = currUserId;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
